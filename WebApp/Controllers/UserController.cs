@@ -6,7 +6,7 @@ namespace WebApp.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class UserController : ControllerBase
+    public class UserController : Controller
     {
         private readonly IRepositoryWrapper _repository;
 
@@ -22,6 +22,23 @@ namespace WebApp.Controllers
             var users = await _repository.User.GetAllUsers();
 
             return Ok(new { users });
+        }
+
+        [HttpDelete]
+        [Authorize(Roles = "Admin")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(int id)
+        {
+            if (_repository.User == null)
+            {
+                return Problem("No users");
+            }
+            var entity = await _repository.User.GetUserById(id);
+            if (entity != null)
+            {
+                _repository.User.Remove(entity);
+            }
+            return Ok();
         }
     }
 }

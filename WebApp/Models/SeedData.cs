@@ -91,11 +91,24 @@ namespace WebApp.Models
             IEnumerable<Product> query = context.Product.Where(product => product.Class == "Suc");
             foreach (var obj in query)
             {
-                if (obj.Class == "Suc")
-                {
-                    obj.Price += 0.25 * obj.Price;
-                }
+                obj.Price += 0.25 * obj.Price;
             }
+            //var query2 =
+            //from p in context.Product
+            //group p by p.Class into newGroup
+            //orderby newGroup.Key
+            //select newGroup;
+            //var l = new List<string> {"Fruct", "Drajeuri" };
+            //foreach (var item in query2)
+            //{
+            //    if (l.Contains(item.Key))
+            //    {
+            //        foreach (Product p in item)
+            //        {
+            //            p.Price = 1;
+            //        }
+            //    }
+            //}
             context.SaveChanges();
         }
     }

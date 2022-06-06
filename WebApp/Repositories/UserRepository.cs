@@ -26,5 +26,13 @@ namespace WebApp.Repositories
         {
             return await _context.Users.FirstOrDefaultAsync(u => u.Email.Equals(email));
         }
+        public async Task<User> GetUserById(int id)
+        {
+            return await _context.Users.FirstOrDefaultAsync(u => u.Id.Equals(id));
+        }
+        public void Remove(User entity)
+        {
+            _context.Users.Remove(entity);
+        }
     }
 }

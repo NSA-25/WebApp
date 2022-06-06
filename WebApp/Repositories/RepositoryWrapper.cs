@@ -20,5 +20,9 @@ namespace WebApp.Repositories
 
             }
         }
+        public async Task SaveAsync()
+        {
+            await _context.SaveChangesAsync();
+        }
     }
 }
